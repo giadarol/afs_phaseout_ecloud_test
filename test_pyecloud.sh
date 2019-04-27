@@ -111,7 +111,7 @@ cd ..
 ./run_htcondor
 
 ##########################################################
-# Setup and launch a set of instaiblity jobs on HTCondor #
+# Setup and launch a set of instability jobs on HTCondor #
 #               (parallel, 8 cores per job)              #
 ##########################################################
 
