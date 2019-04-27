@@ -27,7 +27,7 @@ bash Miniconda2-latest-Linux-x86_64.sh -b -p $PATHTEST/miniconda2
 source $PATHTEST/miniconda2/bin/activate
 which python
 
-# Set matlplotlib backend to Agg 
+# Set matplotlib backend to Agg 
 # (to avoid errors if display not avaialable)
 export MPLBACKEND=Agg
 
