@@ -93,9 +93,9 @@ python 000_run_simulation.py --folder LHC_ArcDipReal_450GeV_sey1.70_2.5e11ppb_bl
 cd $PATHTEST/PyECLOUD/testing/tests_PyEC4PyHT
 python 009_particle_tune_shift_against_HT_multigrid.py
 
-#######################################################
-# Setup and launch a set of PyECLOUD jobs on HTCondor #
-#######################################################
+#################################################
+# Setup and launch 10 PyECLOUD jobs on HTCondor #
+#################################################
 
 # Download example
 cd $PATHTEST
@@ -110,10 +110,10 @@ python config_scan.py
 cd ..
 ./run_htcondor
 
-##########################################################
-# Setup and launch a set of instability jobs on HTCondor #
-#               (parallel, 8 cores per job)              #
-##########################################################
+####################################################
+# Setup and launch 10 instability jobs on HTCondor #
+#            (parallel, 8 cores per job)           #
+####################################################
 
 # Download example
 cd $PATHTEST
