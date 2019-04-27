@@ -15,10 +15,10 @@ which python
 # (to avoid errors if display not avaialable)
 export MPLBACKEND=Agg
 
-##########################################
-# Check that jobs finished correctly     #
-# and that outup files are not corrupted #
-##########################################
+###########################################
+# Check that jobs finished correctly      #
+# and that output files are not corrupted #
+###########################################
 
 echo "Check buildup jobs:"
 cd $PATHTEST/buildup_study_example
