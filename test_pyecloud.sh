@@ -1,27 +1,39 @@
 #!/usr/bin/bash
 
+# Folder in which the tests will be performed 
+PATHTEST="/afs/cern.ch/work/g/giadarol/afs_phaseout_tests/pyeclout_test/testfolder"
+
 # The script will stop on the first error 
 set -e
 
-# This should work when pointed to a EOS path
-PATHTEST="/afs/cern.ch/work/g/giadarol/afs_phaseout_tests/pyeclout_test/testfolder"
-
-echo "Create folder"
+# Create the folder
 mkdir $PATHTEST
 
-cd $PATHTEST
+###########################################
+# Download and install miniconda (python) #
+###########################################
 
+cd $PATHTEST
 mkdir downloads
 cd downloads
 
 wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
 bash Miniconda2-latest-Linux-x86_64.sh -b -p $PATHTEST/miniconda2
 
+######################
+# Activate miniconda #
+######################
+
 source $PATHTEST/miniconda2/bin/activate
 which python
 
-# Set matlplotlib backend to Agg (to avoid errors if display not avaialable)
+# Set matlplotlib backend to Agg 
+#(to avoid errors if display not avaialable)
 export MPLBACKEND=Agg
+
+##############################
+# Install required libraries #
+##############################
 
 pip install numpy
 pip install scipy
@@ -30,6 +42,10 @@ pip install cython
 pip install ipython
 pip install h5py
 
+#############################
+# Download ABP python toots #
+#############################
+
 cd $PATHTEST
 git clone https://github.com/PyCOMPLETE/PyECLOUD
 git clone https://github.com/PyCOMPLETE/PyPIC
@@ -37,6 +53,10 @@ git clone https://github.com/PyCOMPLETE/PyKLU
 git clone https://github.com/PyCOMPLETE/PyHEADTAIL
 git clone https://github.com/PyCOMPLETE/PyPARIS
 git clone https://github.com/PyCOMPLETE/NAFFlib
+
+##########################
+# Compile (f2py, cython) #
+##########################
 
 cd PyPIC
 make
@@ -61,15 +81,22 @@ mv NAFFlib NAFFlib_inst
 mv NAFFlib_inst/NAFFlib .
 cd ..
 
-### Execute an example from PyECLOUD test suite
+############################################
+# Exacute some scripts from the test suite #
+############################################
+
+# Execute an example from buildup test suite
 cd $PATHTEST/PyECLOUD/testing/tests_buildup
 python 000_run_simulation.py --folder LHC_ArcDipReal_450GeV_sey1.70_2.5e11ppb_bl_1.00ns_stress_saver 
 
-### Execute an example from PyEC4PyHT test suite
+# Execute an example from PyEC4PyHT test suite
 cd $PATHTEST/PyECLOUD/testing/tests_PyEC4PyHT
 python 009_particle_tune_shift_against_HT_multigrid.py
 
-### Test buildup simulation study
+#######################################################
+# Setup and launch a set of PyECLOUD jobs on HTCondor #
+#######################################################
+
 # Download example
 cd $PATHTEST
 git clone https://github.com/giadarol/buildup_study_example
@@ -83,7 +110,11 @@ python config_scan.py
 cd ..
 ./run_htcondor
 
-### Test multicore instability study
+##########################################################
+# Setup and launch a set of instaiblity jobs on HTCondor #
+#               (parallel, 8 cores per job)              #
+##########################################################
+
 # Download example
 cd $PATHTEST
 git clone https://github.com/giadarol/instability_study_example
@@ -97,5 +128,6 @@ python config_scan.py
 cd ..
 ./run_PyPARIS_htcondor
 
-
+### When the jobs are complete, plase launch test_pyecloud_checkres.sh
+### to verify that the results are correct
 
