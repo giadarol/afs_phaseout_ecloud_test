@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Folder in which the tests will be performed 
-PATHTEST="/afs/cern.ch/work/g/giadarol/afs_phaseout_tests/pyeclout_test/testfolder"
+PATHTEST="/afs/cern.ch/work/g/giadarol/afs_phaseout_temptests0"
 
 # The script will stop on the first error 
 set -e
@@ -28,7 +28,7 @@ source $PATHTEST/miniconda2/bin/activate
 which python
 
 # Set matlplotlib backend to Agg 
-#(to avoid errors if display not avaialable)
+# (to avoid errors if display not avaialable)
 export MPLBACKEND=Agg
 
 ##############################
