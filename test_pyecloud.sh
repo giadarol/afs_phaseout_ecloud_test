@@ -110,10 +110,10 @@ python config_scan.py
 cd ..
 ./run_htcondor
 
-####################################################
-# Setup and launch 10 instability jobs on HTCondor #
-#            (parallel, 8 cores per job)           #
-####################################################
+###################################################
+# Setup and launch 8 instability jobs on HTCondor #
+#            (parallel, 8 cores per job)          #
+###################################################
 
 # Download example
 cd $PATHTEST
